@@ -4,8 +4,6 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import apiDeputados from '../services/apiDeputados'
 
 const Deputados = () => {
-
-  const params = useParams()
   const [deputados, setDeputados] = useState([])
   const  [partidos, setPartidos] = useState([])
 
@@ -19,8 +17,8 @@ const Deputados = () => {
 
   useEffect(()=>{
 
-    apiDeputados.get('/partidos?language=pt-BR').then(resultado=>{
-        setPartidos(resultado.data.cast)    
+     apiDeputados.get('partidos/').then(resultado => {
+        setPartidos(resultado.data.dados)
     })
  
  },[])
@@ -34,12 +32,12 @@ const Deputados = () => {
                             <h1>Todos os Deputados</h1>
                         </Card>
                         <div>
-                            <Row xs={0} md={1} xl={4} className="g-4">
+                            <Row xs={4} md={2} xl={4} className="g-4">
                                 {deputados.map(item => (
                                     <Col>
                                         <Container>
                                         <Card border="danger" style={{ width: '5rem' }}>
-                                            <Card.Img variant="top" src={item.urlFoto}/>
+                                            <Card.Img variant="top" src={urlFoto}/>
                                             <Card.Text >{item.id}</Card.Text>
 
                                         </Card>
@@ -59,12 +57,12 @@ const Deputados = () => {
                             <h1>Todos os partidos</h1>
                         </Card>
                         <div>
-                            <Row xs={0} md={1} xl={4} className="g-4">
-                                {deputados.map(item => (
-                                    <Col key={item.dados}>
+                            <Row xs={4} md={2} xl={4} className="g-4">
+                                {partidos.map(item => (
+                                    <Col>
                                         <Container>
                                         <Card border="danger" style={{ width: '5rem' }}>
-                                            <Card.Img variant="top" src={item.urlfotos}/>
+                                            <Card.Img variant="top" src={"http://www.camara.leg.br/internet/Deputado/img/partidos/"+item.urlLogo }/>
                                         </Card>
                                         </Container>
                                     </Col>
